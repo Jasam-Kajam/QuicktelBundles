@@ -9,6 +9,11 @@ app.use(express.json());
 // Serve static frontend files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve index.html on root request
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Load Daraja credentials from .env
 const shortcode = process.env.SHORTCODE;        // e.g. 8644442
 const passkey = process.env.PASSKEY;            // From Safaricom portal
