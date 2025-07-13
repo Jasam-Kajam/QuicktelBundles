@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quicktel Bundles</title>
+  <style>
+    body { font-family: sans-serif; background: #f0f0f0; padding: 20px; }
+    h1 { color: #0b7dda; }
+    .bundle-card {
+      background: white; padding: 15px; border-radius: 10px;
+      margin-bottom: 15px; box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .bundle-card input, .bundle-card button {
+      padding: 10px; margin-top: 10px; width: 100%;
+    }
+    button { background: #0b7dda; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Buy Safaricom Bundles</h1>
+
+  <div class="bundle-card">
+    <h3>1GB Daily - KES 50</h3>
+    <input type="tel" placeholder="2547XXXXXXXX" id="phone1">
+    <button onclick="buyBundle(50, '1GB Daily', 'phone1')">Buy Now</button>
+  </div>
+
+  <div class="bundle-card">
+    <h3>5GB Weekly - KES 200</h3>
+    <input type="tel" placeholder="2547XXXXXXXX" id="phone2">
+    <button onclick="buyBundle(200, '5GB Weekly', 'phone2')">Buy Now</button>
+  </div>
+
+  <div class="bundle-card">
+    <h3>10GB Monthly - KES 350</h3>
+    <input type="tel" placeholder="2547XXXXXXXX" id="phone3">
+    <button onclick="buyBundle(350, '10GB Monthly', 'phone3')">Buy Now</button>
+  </div>
+
+  <script>
+    function buyBundle(amount, name, inputId) {
+      const phone = document.getElementById(inputId).value.trim();
+      if (!phone.startsWith('2547') || phone.length !== 12) {
+        alert('Enter valid Safaricom number (e.g. 254712345678)');
+        return;
+      }
+
+      fetch('/stkpush', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, phone, name })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('STK Push Sent. Complete the payment on your phone.');
+        } else {
+          alert('Failed: ' + data.message);
+        }
+      })
+      .catch(() => alert('Network error'));
+    }
+  </script>
+</body>
+</html>
