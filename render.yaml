@@ -9,10 +9,10 @@ services:
       - key: SHORTCODE
         value: 8644442
       - key: PASSKEY
-        value: Your_Safaricom_Passkey
+        value: 7f2d6b0bbdaa4db57002b6e1cefef48b2bd3d95dffcad195a274faa04573fed1
       - key: CONSUMER_KEY
-        value: Your_Consumer_Key
+        value: zef5el9FheWcQfcc38R65gBgek8A6rSAKbbxGv2eD17ODBLu
       - key: CONSUMER_SECRET
-        value: Your_Consumer_Secret
+        value: gZ7be8v0AYz5PyZQBeoEh8zW4zx36j8EHDfhu4SwzUzCOUlxh4sxfwonGA8niYvD
       - key: CALLBACK_URL
         value: https://quicktelbundles.onrender.com/mpesa/callback
