@@ -1,87 +1,88 @@
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const path = require('path');
-
+const express = require("express");
+const bodyParser = require("body-parser");
+const axios = require("axios");
+const dotenv = require("dotenv");
 const app = express();
-app.use(express.json());
 
-// Serve static frontend files from the "public" folder
-app.use(express.static(path.join(__dirname, 'public')));
+dotenv.config(); // Load .env variables
 
-// Serve index.html on root request
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+app.use(bodyParser.json());
 
-// Load Daraja credentials from .env
-const shortcode = process.env.SHORTCODE;        // e.g. 8644442
-const passkey = process.env.PASSKEY;            // From Safaricom portal
-const consumerKey = process.env.CONSUMER_KEY;
-const consumerSecret = process.env.CONSUMER_SECRET;
-const callbackUrl = process.env.CALLBACK_URL;
-
-// Generate current timestamp
-function getTimestamp() {
-  const now = new Date();
-  return now.toISOString().replace(/[^0-9]/g, "").slice(0, 14);
-}
-
-// Generate access token from Safaricom
+// GET OAUTH TOKEN
 async function getAccessToken() {
-  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
-  const res = await axios.get(
+  const { CONSUMER_KEY, CONSUMER_SECRET } = process.env;
+  const auth = Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString("base64");
+
+  const response = await axios.get(
     "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
     {
-      headers: { Authorization: `Basic ${auth}` }
+      headers: {
+        Authorization: `Basic ${auth}`,
+      },
     }
   );
-  return res.data.access_token;
+  return response.data.access_token;
 }
 
-// Handle STK Push route
+// STK PUSH
 app.post("/stkpush", async (req, res) => {
-  try {
-    const { amount, phone, name } = req.body;
-    const timestamp = getTimestamp();
-    const password = Buffer.from(shortcode + passkey + timestamp).toString("base64");
-    const token = await getAccessToken();
+  const phone = req.body.phone; // Must be in format 2547XXXXXXXX
+  const amount = req.body.amount || 10;
+  const access_token = await getAccessToken();
 
+  const timestamp = new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14);
+  const password = Buffer.from(
+    process.env.SHORTCODE + process.env.PASSKEY + timestamp
+  ).toString("base64");
+
+  const payload = {
+    BusinessShortCode: process.env.SHORTCODE,
+    Password: password,
+    Timestamp: timestamp,
+    TransactionType: "CustomerPayBillOnline",
+    Amount: amount,
+    PartyA: phone,
+    PartyB: process.env.SHORTCODE,
+    PhoneNumber: phone,
+    CallBackURL: process.env.CALLBACK_URL,
+    AccountReference: "Quicktel",
+    TransactionDesc: "Quicktel Bundles",
+  };
+
+  try {
     const response = await axios.post(
       "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
-      {
-        BusinessShortCode: shortcode,
-        Password: password,
-        Timestamp: timestamp,
-        TransactionType: "CustomerBuyGoodsOnline",
-        Amount: amount,
-        PartyA: phone,
-        PartyB: shortcode,
-        PhoneNumber: phone,
-        CallBackURL: callbackUrl,
-        AccountReference: name,
-        TransactionDesc: `Purchase ${name}`
-      },
+      payload,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
+          Authorization: `Bearer ${access_token}`,
+        },
       }
     );
 
-    res.json({ success: true, data: response.data });
-  } catch (err) {
-    console.error("STK Push error:", err.response?.data || err);
     res.json({
-      success: false,
-      message: err.response?.data?.errorMessage || "Failed to send STK"
+      status: "sent",
+      response: response.data,
     });
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    res.status(500).json({ error: "STK Push Failed" });
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
+// CALLBACK ENDPOINT (Safaricom will send payment result here)
+app.post("/mpesa/callback", (req, res) => {
+  console.log("Callback received:", JSON.stringify(req.body, null, 2));
+  res.json({ status: "OK" });
+});
+
+// HOME
+app.get("/", (req, res) => {
+  res.send("Quicktel Bundles API is live 🚀");
+});
+
+// START SERVER
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
