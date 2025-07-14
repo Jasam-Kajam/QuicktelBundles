@@ -79,12 +79,14 @@ app.post("/stkpush", async (req, res) => {
       data: response.data,
     });
   } catch (err) {
-    console.error("❌ STK Push error:", err.response?.data || err.message);
-    res.status(500).json({
-      error: "STK Push failed",
-      details: err.response?.data || err.message,
-    });
-  }
+  const errorDetails = err.response?.data || { message: err.message };
+  console.error("❌ Full STK Push error response:", errorDetails);
+
+  res.status(500).json({
+    error: "STK Push failed",
+    details: errorDetails
+  });
+}
 });
 
 // === Step 3: Callback Endpoint ===
