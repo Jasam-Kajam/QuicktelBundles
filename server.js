@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 app.use(bodyParser.json());
-app.use(express.static("public")); // for frontend files
+app.use(express.static("public")); // for public files
 
 // === Step 1: Get Access Token ===
 async function getAccessToken() {
@@ -91,11 +91,6 @@ app.post("/stkpush", async (req, res) => {
 app.post("/mpesa/callback", (req, res) => {
   console.log("📞 M-PESA CALLBACK:", JSON.stringify(req.body, null, 2));
   res.sendStatus(200);
-});
-
-// === Step 4: Confirm API is Live ===
-app.get("/", (req, res) => {
-  res.send("✅ Quicktel Bundles API is live 🚀");
 });
 
 // === Start the server ===
