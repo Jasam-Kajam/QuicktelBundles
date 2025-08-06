@@ -54,17 +54,17 @@ app.post("/stkpush", async (req, res) => {
     const password = Buffer.from(`${process.env.SHORTCODE}${process.env.PASSKEY}${timestamp}`).toString("base64");
 
     const stkRequest = {
-      BusinessShortCode: process.env.SHORTCODE,        // 5666236
+      BusinessShortCode: process.env.SHORTCODE,
       Password: password,
       Timestamp: timestamp,
-      TransactionType: "CustomerPayBillOnline",
+      TransactionType: "CustomerBuyGoodsOnline",
       Amount: amount,
       PartyA: phone,
-      PartyB: process.env.SHORTCODE,                   // 5666236
+      PartyB: process.env.TILL_NUMBER,
       PhoneNumber: phone,
       CallBackURL: process.env.CALLBACK_URL,
-      AccountReference: "6448270",                     // Store Number
-      TransactionDesc: "Quicktel Bundles Store 6448270",
+      AccountReference: "WAFULA DIGITAL",                     // Store Number
+      TransactionDesc: "Bundles",
     };
 
     console.log("🧾 STK Payload:", JSON.stringify(stkRequest, null, 2));
