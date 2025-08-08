@@ -104,7 +104,7 @@
       if (!confirmBuy) return;
 
       try {
-        const res = await fetch("weks.xo.je/stkpush.php", {
+        const res = await fetch("/stkpush", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
