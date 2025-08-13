@@ -1,168 +1,128 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quicktel Bundles</title>
   <style>
-    /* Styles remain the same as in the cleaned version */
+    body {
+      font-family: sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .bundle-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .card h3 {
+      margin: 0;
+      color: #1b5e20;
+    }
+    .card p {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+    .card button {
+      background: #1b5e20;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card button:hover {
+      background: #2e7d32;
+    }
+    input {
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" width="120" alt="Quicktel Logo">
-    <nav class="menu">
-      <a href="#">Home</a>
-      <a href="#" data-section="bundles">Bundles</a>
-      <a href="#" data-section="minutes">Minutes</a>
-      <a href="#" data-section="sms">SMS</a>
-      <a href="terms.html">Terms & Conditions</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="https://wa.me/254729952483" target="_blank">Support</a>
-    </nav>
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+  <h1>Quicktel Bundles</h1>
+
+  <input id="phone" type="tel" placeholder="Enter your Safaricom number (e.g. 2547XXXXXXX)" />
+
+  <div class="bundle-container">
+    <div class="card">
+      <h3>50MB</h3>
+      <p>KES 2</p>
+      <button onclick="buyBundle(2)">Buy</button>
     </div>
-  </header>  <main>
-    <h1>QUICKTEL BUNDLES</h1>
-    <section id="bundles">
-      <h2>Data Bundles</h2>
-      <div class="product" onclick="openPhonePopup('1GB Daily Bundle', 50)">
-        <h3>1GB Daily Bundle</h3>
-        <p>Valid for 24 hours</p>
-        <strong>KES 50</strong>
-      </div>
-      <div class="product" onclick="openPhonePopup('5GB Weekly Bundle', 250)">
-        <h3>5GB Weekly Bundle</h3>
-        <p>Valid for 7 days</p>
-        <strong>KES 250</strong>
-      </div>
-    </section><section id="minutes">
-  <h2>Minutes Packages</h2>
-  <div class="product" onclick="openPhonePopup('100 Minutes', 100)">
-    <h3>100 Minutes</h3>
-    <p>Valid for 30 days</p>
-    <strong>KES 100</strong>
-  </div>
-  <div class="product" onclick="openPhonePopup('500 Minutes', 450)">
-    <h3>500 Minutes</h3>
-    <p>Valid for 30 days</p>
-    <strong>KES 450</strong>
-  </div>
-</section>
-
-<section id="sms">
-  <h2>SMS Packages</h2>
-  <div class="product" onclick="openPhonePopup('500 SMS', 50)">
-    <h3>500 SMS</h3>
-    <p>Valid for 30 days</p>
-    <strong>KES 50</strong>
-  </div>
-  <div class="product" onclick="openPhonePopup('2000 SMS', 150)">
-    <h3>2000 SMS</h3>
-    <p>Valid for 30 days</p>
-    <strong>KES 150</strong>
-  </div>
-</section>
-
-  </main>  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup">
-      <h3>Enter Payment Details</h3>
-      <input type="text" id="popupPhone" placeholder="MPESA Number (2547...)" maxlength="12">
-      <input type="hidden" id="popupAmount">
-      <input type="hidden" id="popupTitle">
-      <button id="submitPayment">Pay Now</button>
-      <button class="cancel" onclick="closePopup()">Cancel</button>
+    <div class="card">
+      <h3>150MB</h3>
+      <p>KES 5</p>
+      <button onclick="buyBundle(5)">Buy</button>
     </div>
-  </div>  <div id="customConfirmOverlay">
-    <div id="customConfirmBox">
-      <h3>Confirm Your Purchase</h3>
-      <div id="confirmDetails"></div>
-      <button class="confirm-yes">Proceed to Pay</button>
-      <button class="confirm-no">Cancel</button>
+    <div class="card">
+      <h3>500MB</h3>
+      <p>KES 10</p>
+      <button onclick="buyBundle(10)">Buy</button>
     </div>
-  </div>  <footer>
-    &copy; <span id="year"></span> Quicktel. All rights reserved.
-    <p>
-      <a href="terms.html">Terms & Conditions</a> |
-      <a href="privacy.html">Privacy Policy</a> |
-      <a href="https://samuwa-educanews.onrender.com/contac.html" target="_blank">Support</a>
-    </p>
-  </footer>  <script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    <div class="card">
+      <h3>1GB</h3>
+      <p>KES 20</p>
+      <button onclick="buyBundle(20)">Buy</button>
+    </div>
+    <div class="card">
+      <h3>2GB</h3>
+      <p>KES 50</p>
+      <button onclick="buyBundle(50)">Buy</button>
+    </div>
+  </div>
 
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.querySelector('.menu');
-    hamburger.addEventListener('click', () => menu.classList.toggle('show'));
-
-    const popupOverlay = document.getElementById("popupOverlay");
-    const phoneInput = document.getElementById("popupPhone");
-    const amountInput = document.getElementById("popupAmount");
-    const titleInput = document.getElementById("popupTitle");
-    const submitBtn = document.getElementById("submitPayment");
-
-    const confirmOverlay = document.getElementById("customConfirmOverlay");
-    const confirmDetails = document.getElementById("confirmDetails");
-    const confirmYesBtn = document.querySelector(".confirm-yes");
-    const confirmNoBtn = document.querySelector(".confirm-no");
-
-    function customConfirm(product, amount) {
-      return new Promise((resolve) => {
-        confirmDetails.innerHTML = `📦 <strong>${product}</strong><br>💰 Amount: <strong>KES ${amount}</strong>`;
-        confirmOverlay.style.display = 'flex';
-        confirmYesBtn.onclick = () => { confirmOverlay.style.display = 'none'; resolve(true); };
-        confirmNoBtn.onclick = () => { confirmOverlay.style.display = 'none'; resolve(false); };
-      });
-    }
-
-    async function openPhonePopup(product, amount) {
-      const confirmPurchase = await customConfirm(product, amount);
-      if (!confirmPurchase) return;
-      phoneInput.value = '';
-      amountInput.value = amount;
-      titleInput.value = product;
-      popupOverlay.classList.add("active");
-    }
-
-    function closePopup() {
-      popupOverlay.classList.remove("active");
-    }
-
-    submitBtn.addEventListener("click", async () => {
-      const phone = phoneInput.value.trim();
-      const amount = amountInput.value;
-      const product = titleInput.value;
-
-      if (!/^254\d{9}$/.test(phone)) {
-        alert("❌ Please enter a valid Safaricom number starting with 254...");
+  <script>
+    async function buyBundle(amount) {
+      const phone = document.getElementById("phone").value.trim();
+      if (!phone.match(/^2547\d{8}$/)) {
+        alert("Please enter a valid Safaricom number in format 2547XXXXXXXX");
         return;
       }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Processing...';
+      const confirmBuy = confirm(`Buy bundle worth KES ${amount} for ${phone}?`);
+      if (!confirmBuy) return;
 
       try {
-        const response = await fetch("/process-payment", {
+        const res = await fetch("/stkpush", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, amount, product })
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ phone, amount })
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-          alert(`✅ Payment initiated successfully! Transaction ID: ${result.transactionId || 'N/A'}`);
-          closePopup();
+        const data = await res.json();
+        if (res.ok) {
+          alert("✅ STK sent to your phone. Enter PIN to complete.");
         } else {
-          alert(`❌ Payment failed: ${result.message || 'Unknown error'}`);
+          console.error(data);
+          alert("❌ Failed to send STK Push: " + (data.details?.errorMessage || "Unknown error"));
         }
-      } catch (error) {
-        alert(`⚠️ Error connecting to server: ${error.message}`);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Pay Now';
+      } catch (err) {
+        alert("❌ Error: " + err.message);
       }
-    });
-  </script></body>
+    }
+  </script>
+</body>
 </html>
