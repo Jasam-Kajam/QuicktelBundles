@@ -2,95 +2,718 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quicktel Bundles</title>
   <style>
+    /* General Styles */
     body {
-      font-family: sans-serif;
-      background: #f7f7f7;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 20;
     }
+
+    header {
+      background: #2a3bff;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    } 
+    
+    .menu {
+      display: flex;
+    }
+
+    .menu a {
+      margin-right: 15px;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Hamburger styles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      background: white;
+      height: 3px;
+      margin: 4px 0;
+      width: 25px;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background: #2a3bff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+
+      .menu.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+       /* Footer */
+  footer {
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    color: #dc3545;
+    font-size: 0.9em;
+    border-top: 10px solid #2aaf;
+    border-bottom: 10px solid #2aaf;
+    border-left: 10px solid #dc3;
+    border-right: 15px solid #2a3bff;
+  }
+
+    .menu a {
+      margin-right: 15px;
+      color: white;
+      text-decoration: none;
+    }
+
     h1 {
       text-align: center;
-      color: #333;
+      outline: #fff
+      color: linear-gradient(90deg, #dc3545, #2a3bff, #fff);
+      background: linear-gradient(90deg, #6a80fe, #fff);
+      background-left: 1000px;
     }
-    .bundle-container {
+
+    /* Grid Layout */
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 30px;
+      gap: 20px;
+      padding: 20px;
     }
+
     .card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      position: relative;
     }
-    .card h3 {
-      margin: 0;
-      color: #1b5e20;
-    }
-    .card p {
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    .card button {
-      background: #1b5e20;
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #f43f5e;
       color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 12px;
     }
-    .card button:hover {
-      background: #2e7d32;
+    
+    .one {
+      border-left: 4px solid #4f58ff;
     }
-    input {
-      padding: 8px;
+    .one {
+      border-top: 4px solid #28a745;
+    }
+    .one {
+      border-right: 4px solid #a855f7;
+    }
+    .one {
+      border-bottom: 4px solid #f43f5e;
+    }
+    .two {
+      border-left: 4px solid #f43f5e;
+    }
+    .three {
+      border-left: 4px solid #4f58ff;
+    }
+    .four {
+      border-left: 4px solid #f43f5e;
+    }
+    .five {
+      border-left: 4px solid #a855f7;
+    }
+    .six {
+      border-left: 4px solid #1a237e;
+    }
+    .seven {
+      border-left: 4px solid #28a745;
+    }
+    .card img {
+      width: 70px;
+      margin-bottom: 100px;
+      float: right;
+  border-radius: 10px;
+  border-left: 2px solid #1e1e2f; border-top: 4px solid #1e1e2f; border-right: 2px solid #1e1e2f; border-bottom: 4px solid #1e1e2f;
+    }
+
+    .card h2 {
+      margin: 10px 0;
+    }
+
+    .validity {
+      margin-bottom: 10px;
+      margin-top: 10;
+      color: #28a745;
+    }
+    .one button {
+      background: linear-gradient(90deg, #6a80fe, #2a3bff);
+    }
+    .two button {
+      background: linear-gradient(90deg, #dc3545, #2a3bff);
+    }
+    .three button {
+      background: linear-gradient(90deg, #6a80fe, #dc3545);
+    }
+    .four button {
+      background: linear-gradient(90deg, #dc3545, #2a3bff);
+    }
+    .five button {
+      background: linear-gradient(90deg, #6a80fe, #fff);
+    }
+    .six button {
+      background: linear-gradient(90deg, #f43f5e, #28a745, #4f58ff, #2a3bff);
+    }
+    .seven button {
+      background: linear-gradient(90deg, #a855f7, #1a237e,#f4f4f4, #1a237e);
+    }
+    button {
       width: 100%;
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      padding: 8px;
+      font-size: 17px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: #28a745;
+    }
+    .pay-now {
+      background: #dc3545;
+      margin-top: 10px;
+    }
+    .cancel {
+      background: #dc3545;
+      margin-top: 10px;
+    }
+
+    /* Popup Styles */
+    .popup-overlay {
+      position: fixed;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: top 0.5s ease, opacity 0.5s ease;
+      z-index: 9999;
+    }
+
+    .popup-overlay.active {
+      top: 0;
+      opacity: 1;
+    }
+
+    .popup {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup input {
+      width: 90%;
+      padding: 15px;
+      margin-top: 4px;
+    }
+/* Custom popup styles */
+#customConfirmOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    display: none;
+}
+#customConfirmBox {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+#customConfirmBox h3 {
+    margin-bottom: 10px;
+    border-radius: 5000px;
+}
+#customConfirmBox button {
+    padding: 8px 14px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.confirm-yes {
+    background: #28a745;
+    color: white;
+}
+.confirm-no {
+    background: #dc3545;
+    color: white;
+}
+  
+    /* Footer */
+    footer a {
+      text-align: center;
+      color: #4f58ff;
+      text-decoration: none;
+      margin-right: 15px;
+   }
+  </style>
+</head>
+<body>
+
+      </nav>
+<header>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" width="120" alt="Quicktel Logo">
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#" data-section="bundles">Bundles</a>
+      <a href="#" data-section="minutes">Minutes</a>
+      <a href="#" data-section="sms">SMS</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://wa.me/254729952483" target="_blank">Support</a>
+    </nav>
+     <div class="hamburger" id="hamburger">
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <main>
+    <h1>QUICKTEL BUNDLES</h1>
+     <div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+  <p style="font-size: 14px; color: #333; line-height: 1.5; max-width: 600px; margin: auto;">
+    Enjoy unbeatable data and call offers tailored just for you. Whether you're topping up for yourself or sharing the love with family and friends, Quicktel makes it fast, secure, and affordable.
+  </p>
+<p></p><strong>Choose bundle below and get connected instantly!!!</strong></p>
+
+
+<h2 style="text-align:center; font-family: 'Segoe UI'; color: #333;">Choose Purchase Mode</h2>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin: 30px; font-family: 'Segoe UI', sans-serif;">
+
+  <!-- 2GB Bundle Card -->
+  <div style="position: relative; background: #dc3545; color: white; padding: 20px 25px; border-left: 4px solid #1e1e2f; border-top: 4px solid #1e1e2f; border-right: 4px solid #1e1e2f; border-bottom: 4px solid #1e1e2f; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 6px 12px rgba(0,0,0,0.15);">
+    <span style="position: absolute; top: 10px; right: 10px; background: #7c3aed; padding: 4px 10px; font-size: 0.75em; border-radius: 10px; font-weight: bold; border-right: 2px solid #dc3; border-left: 2px solid #dc3; border-top: 2px solid #dc3; border-bottom: 2px solid #dc3;">HOT DEAL!</span>
+    <h3 style="margin: 0; font-size: 1.4em;">🎉 2GB Ksh. 110 🎉</h3>
+    <p style="margin: 8px 0 15px; color: #cbd5e1;">Limited time offer – save 20% on this bundle</p>
+    <a href="https://bingwasokoni.co.ke/dav.php?product_name=2GB&product_id=1&amount=110&ref=2PHFU3FB">
+  <button style="width: 100%; padding: 12px; font-size: 1em; background-color: #2a3bff; border: none; border-radius: 8px; color: white; cursor: pointer; border-right: 2px solid #fff; border-left: 2px solid #fff; border-top: 2px solid #fff; border-bottom: 2px solid #fff;">
+    Buy Now <i>→</i>
+  </button>
+</a>
+  </div>
+    
+  <div style="max-width: 400px; margin: 20px auto; padding: 20px; border-left: 4px solid #7c3aed; border-top: 4px solid #7c3aed; border-right: 4px solid #7c3aed; border-bottom: 4px solid #dc3545; background: #1e1e2f; border-radius: 16px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.2); position: relative;">
+  <div style="position: absolute; top: 15px; right: 15px; background: #7c3aed; color: white; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; border-right: 2px solid #fff; border-left: 2px solid #fff; border-top: 2px solid #fff; border-bottom: 2px solid #fff;">
+    LEARN
+  </div>
+  <h3 style="font-size: 18px; margin-bottom: 10px;">🎥 Master Contents Creation</h3>
+  <p style="font-size: 14px; color: #cbd5e1;">Learn how to create Songs,Blogs,Graphic design,Web Designing,grow your channel, build a subscriber base, and create viral content.</p>
+  <a href="https://sawa-educations.onrender.com" style="display:  block; background: #7c3aed; text-align: center; padding: 12px; color: white; border-radius: 10px; text-decoration: none; margin-top: 15px; font-weight: bold; border-right: 2px solid #dc3; border-left: 2px solid #dc3; border-top: 2px solid #dc3; border-bottom: 2px solid #dc3;">
+    Start Learning →
+  </a>
+</div>
+
+
+    <div style="text-align: center;">
+      <label for="mainSelect">Main Category:</label>
+      <select id="mainSelect">
+        <option value="bundles">Bundles</option>
+        <option value="minutes">Minutes</option>
+        <option value="sms">SMS</option>
+      </select>
+    </div>
+
+        </div>
+<section class="grid" id="bundleGrid">
+
+  <!-- ===== BUNDLES CARDS START ===== -->
+  <div class="card one" data-category="bundles">
+    <div class="badge">MOST POPULAR NOW</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>250MB</h2>
+    <p>Price: Ksh.<strong>20</strong></p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('250MB', 20)">Buy Now</button>
+  </div>
+
+  <div class="card five" data-category="bundles">
+    <div class="badge">BEST DEAL</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>5GB</h2>
+    <p>Price: Ksh.<strong>1,000</strong></p>
+    <div class="validity">⏱ No Expiry + <strong>Free Whatsapp</strong></div>
+    <button onclick="openPhonePopup('5GB', 1000)">Buy Now</button>
+  </div>
+  <div class="card seven" data-category="bundles">
+    <div class="badge">DAILY Package</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>1GB</h2>
+    <p>Price: Ksh.<strong>99</strong></p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('1GB', 99)">Buy Now</button>
+  </div>
+  <div class="card two" data-category="bundles">
+    <div class="badge">FASTER USE</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>500MB</h2>
+    <p>Price: Ksh.<strong>20</strong></p>
+    <div class="validity">⏱ Valid: <strong>3hrs</strong></div>
+    <button onclick="openPhonePopup('500MB', 20)">Buy Now</button>
+  </div>
+  <div class="card three" data-category="bundles">
+    <div class="badge">GOOD CHOICE</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>300MB</h2>
+    <p>Price: Ksh.<strong>25</strong></p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('300MB', 25)">Buy Now</button>
+  </div>
+  <!-- ===== BUNDLES CARDS END ===== -->
+
+  <!-- ===== MINUTES CARDS START ===== -->
+   <div class="card one" data-category="minutes">
+    <div class="badge">MOST POPULAR</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>51 MINS </h2>
+    <p>Price: Ksh.<strong>48</strong></p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('51 MINS', 48)">Buy Now</button>
+  </div>
+  <div class="card three" data-category="minutes">
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>800 MINS</h2>
+    <p>Price: Ksh.1200</p>
+    <div class="validity">⏱ Valid: <strong>30 days</strong></div>
+    <button onclick="openPhonePopup('800 MINS', 1200)">Buy Now</button>
+  </div>
+  <div class="card four" data-category="minutes">
+    <div class="badge">MOST POPULAR</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>100 MINS</h2>
+    <p>Price: Ksh.<strong>55</strong></p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('100 MINS', 55)">Buy Now</button>
+  </div> 
+  <div class="card five" data-category="minutes">
+    <div class="badge">MOST POPULAR</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>20 MINS</h2>
+    <p>Price: Ksh.<strong>10</strong></p>
+    <div class="validity">⏱ Valid: <strong>1hr</strong></div>
+    <button onclick="openPhonePopup('20 MINS', 10)">Buy Now</button>
+  </div>
+   <div class="card seven" data-category="minutes">
+    <div class="badge">MOST POPULAR</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>48 MINS</h2>
+    <p>Price: Ksh.<strong>20</strong></p>
+    <div class="validity">⏱ Valid: <strong>3hrs</strong></div>
+    <button onclick="openPhonePopup('48 MINS', 20)">Buy Now</button>
+  </div>
+   <div class="card six" data-category="minutes">
+    <div class="badge">MOST POPULAR</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>30 MINS</h2>
+    <p>Price: Ksh.<strong>5</strong></p>
+    <div class="validity">⏱ Valid: <strong>1hrs</strong></div>
+    <button onclick="openPhonePopup('30', 5)">Buy Now</button>
+  </div>
+  <!-- ===== MINUTES CARDS END ===== -->
+
+  <!-- ===== SMS CARDS START ===== -->
+  <div class="card four" data-category="sms">
+    <div class="badge">POPULAR NOW</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>200SMS</h2>
+    <p>Price: Ksh.10</p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('200SMS', 10)">Buy Now</button>
+  </div>
+
+  <div class="card five" data-category="sms">
+    <div class="badge">BEST CHOICE</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>1000SMS</h2>
+    <p>Price: Ksh.<strong>30</strong></p>
+    <div class="validity">⏱ Valid: <strong>7 days</strong></div>
+    <button onclick="openPhonePopup('1000SMS', 30)">Buy Now</button>
+  </div>
+  <div class="card four" data-category="sms">
+    <div class="badge">POPULAR NOW</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>20SMS</h2>
+    <p>Price: Ksh.5</p>
+    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
+    <button onclick="openPhonePopup('20SMS', 5)">Buy Now</button>
+  </div>
+  <div class="card four" data-category="sms">
+    <div class="badge">.....</div>
+    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
+    <h2>10000
+    SMS</h2>
+    <p>Price: Ksh.500</p>
+    <div class="validity">⏱ Valid: <strong>30 days</strong></div>
+    <button onclick="openPhonePopup('10000SMS', 500)">Buy Now</button>
+  </div>
+  <!-- ===== SMS CARDS END ===== -->
+
+</section>
+</main>
+
+ <!-- Payment Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <h3>Enter Payment Details</h3>
+      <input type="text" id="popupPhone" placeholder="MPESA Number (2547...)" maxlength="12">
+      <input type="hidden" id="popupAmount">
+      <input type="hidden" id="popupTitle">
+      <button id="submitPayment">Pay Now</button>
+      <button class="cancel" onclick="closePopup()">Cancel</button>
+    </div>
+  </div>
+  <div id="customConfirmOverlay">
+    <div id="customConfirmBox">
+        <h3>Confirm Your Purchase</h3>
+        <div id="confirmDetails"></div>
+        <button class="confirm-yes">Proceed to Pay</button>
+        <button class="confirm-no">Cancel</button>
+    </div>
+</div>
+ 
+  <style>
+ 
+  }
+    
+    header, main {
+      max-width: 10px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 30px 0 20px;
+    }
+
+  .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* fixed 2 columns */
+  gap: 16px;
+  padding: 0 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .offer-box {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .offer-label {
+      display: inline-block;
+      background: #c7d2fe;
+      color: #1d4ed8;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .offer-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .offer-desc {
+      font-size: 14px;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .offer-validity {
+      font-size: 13px;
+      color: #475569;display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .buy-btn {
+      background: linear-gradient(to right, #3b82f6, #6366f1);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .buy-btn:hover {
+      opacity: 0.95;
+    }
+    .responsive-iframe-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .responsive-iframe-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>Quicktel Bundles</h1>
 
-  <input id="phone" type="tel" placeholder="Enter your Safaricom number (e.g. 2547XXXXXXX)" />
+    <h2>Purchase More Offers</h2>
+  <main>
+    <section class="grid">
+      <a href="https://quicktel-bundle.onrender.com/special.html" class="card one">
+        <div class="card-icon">💡</div>
+        <div>SPECIAL OFFERS</div>
+      </a>
+      <a href="https://bingwasokoni.co.ke/?ref=2PHFU3FB" class="card seven" target="_blank">
+        <div class="card-icon">📦</div>
+        <div>BINGWA BUNDLES</div>
+      </a>
+      <a href="https://quicktel-bundle.onrender.com/airtel.html" class="card one">
+        <div class="card-icon">☁️</div>
+        <div>AIRTEL DATA</div>
+      </a>
+      <a href="https://quicktel-bundle.onrender.com/bulk.html" class="card two">
+        <div class="card-icon">🧃</div>
+        <div>BULK BUNDLES</div>
+      </a>
+      <a href="https://quicktel-bundle.onrender.com/allinone.html" class="card one">
+        <div class="card-icon">🟢</div>
+        <div>ALL IN ONE</div>
+      </a>
+      <a href="https://quicktel-bundle.onrender.com/sms.html" class="card six">
+        <div class="card-icon">💬</div>
+        <div>SMS OFFERS</div>
+        </a>
+      <a href="https://quicktel-bundle.onrender.com/minutes.html" class="card one">
+        <div class="card-icon">📞</div>
+        <div>MINUTES OFFERS</div>
+      </a>
+      <a href="https://quicktel-bundle.onrender.com/monthly.html" class="card five">
+        <div class="card-icon">🗓️</div>
+        <div>GO MONTHLY BUNDLES</div>
+      </a>
+    </section>
 
-  <div class="bundle-container">
-    <div class="card">
-      <h3>50MB</h3>
-      <p>KES 2</p>
-      <button onclick="buyBundle(2)">Buy</button>
-    </div>
-    <div class="card">
-      <h3>150MB</h3>
-      <p>KES 5</p>
-      <button onclick="buyBundle(5)">Buy</button>
-    </div>
-    <div class="card">
-      <h3>500MB</h3>
-      <p>KES 10</p>
-      <button onclick="buyBundle(10)">Buy</button>
-    </div>
-    <div class="card">
-      <h3>1GB</h3>
-      <p>KES 20</p>
-      <button onclick="buyBundle(20)">Buy</button>
-    </div>
-    <div class="card">
-      <h3>2GB</h3>
-      <p>KES 50</p>
-      <button onclick="buyBundle(50)">Buy</button>
-    </div>
+    <h2>Go Monthly Bingwa Offers</h2>
+
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin: 30px; font-family: 'Segoe UI', sans-serif;">
+
+<!-- 2GB Bundle Card -->
+  <div style="position: relative; background: linear-gradient(90deg, #a855f7, #1a237e,#f4f4f4, #1a237e); color: white; padding: 40px 25px; border-left: 4px solid #dc3; border-top: 4px solid #1e1e2f; border-right: 4px solid #dc3; border-bottom: 4px solid #1e1e2f; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 6px 12px rgba(0,0,0,0.15);">
+    <span style="position: absolute; top: 10px; right: 10px; background: #7c3aed; padding: 4px 10px; font-size: 0.75em; border-radius: 10px; font-weight: bold; border-right: 2px solid #dc3; border-left: 2px solid #dc3; border-top: 2px solid #dc3; border-bottom: 2px solid #dc3;">SUPER DEAL!</span>
+    <h3 style="margin: 0; font-size: 1.4em; color: #dc3;"> 5GB Ksh. 150 </h3>
+    <p style="margin: 8px 0 15px; color: #cbd5e1;">Valid for 48hrs – save 20% on this bundle</p>
+  <button style="width: 100%; padding: 12px; font-size: 1em; background-color: #2a3bff; border: none; border-radius: 8px; color: white; cursor: pointer; border-right: 2px solid #fff; border-left: 2px solid #fff; border-top: 2px solid #fff; border-bottom: 2px solid #fff;">
+    <a onclick="openPhonePopup('5GB', 150)">
+    Buy Now <i>→</i> 
+  </button>
+</a>
   </div>
+
+  </main>
+  </body>
+  </html>
+ <footer>
+        <div>&copy; <span id="year"></span> Quicktel. All rights reserved.
+        <p>
+            <a href="https://quicktel-bundle.onrender.com/terms.html">Terms & Conditions</a> |
+            <a href="quicktel-bundle.onrender.com/privacy.html">Privacy Policy</a> |
+            <a href="https://samuwa-educanews.onrender.com/contac.html" target="_blank">Support</a>
+        </p>
+    </footer>
+
 
   <script>
     async function buyBundle(amount) {
