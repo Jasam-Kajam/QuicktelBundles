@@ -64,7 +64,7 @@ app.post("/stkpush", async (req, res) => {
       PartyB: process.env.TILL_NUMBER,
       PhoneNumber: phone,
       CallBackURL: process.env.CALLBACK_URL,
-      AccountReference: "WAFULA DIGITAL",                     // Store Number
+      AccountReference: process.env.ACCOUNT_NAME,
       TransactionDesc: "Bundles",
     };
 
