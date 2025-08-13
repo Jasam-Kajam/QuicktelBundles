@@ -4,11 +4,19 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const path = require("path");
+const cors = require("cors"); // ✅ Add CORS support
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 10000;
+
+// ✅ Enable CORS for all origins
+app.use(cors({
+  origin: "*", // Allow any domain
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(bodyParser.json());
 app.use(express.static("public")); // Serve index.html and assets
@@ -39,7 +47,7 @@ async function getAccessToken() {
   return response.data.access_token;
 }
 
-// Send STK Push using HO shortcode
+// Send STK Push
 app.post("/stkpush", async (req, res) => {
   try {
     const { phone, amount } = req.body;
@@ -63,7 +71,7 @@ app.post("/stkpush", async (req, res) => {
       PartyB: process.env.TILL_NUMBER,
       PhoneNumber: phone,
       CallBackURL: process.env.CALLBACK_URL,
-      AccountReference: "WAFULA DIGITAL",                     // Store Number
+      AccountReference: "WAFULA DIGITAL",
       TransactionDesc: "Bundles",
     };
 
