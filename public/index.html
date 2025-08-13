@@ -1,36 +1,31 @@
+<script>
+  const API_URL = "https://quicktelbundles.onrender.com/stkpush"; // full URL to your backend
 
+  async function buyBundle(amount) {
+    const phone = document.getElementById("phone").value.trim();
 
-  <script>
-    async function buyBundle(amount) {
-      const phone = document.getElementById("phone").value.trim();
-      if (!phone.match(/^2547\d{8}$/)) {
-        alert("Please enter a valid Safaricom number in format 2547XXXXXXXX");
-        return;
-      }
-
-      const confirmBuy = confirm(`Buy bundle worth KES ${amount} for ${phone}?`);
-      if (!confirmBuy) return;
-
-      try {
-        const res = await fetch("/stkpush", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ phone, amount })
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          alert("✅ STK Push sent to your phone. Enter PIN to complete.");
-        } else {
-          console.error(data);
-          alert("❌ Failed to send STK Push: " + (data.details?.errorMessage || "Unknown error"));
-        }
-      } catch (err) {
-        alert("❌ Error: " + err.message);
-      }
+    if (!/^2547\d{8}$/.test(phone)) {
+      alert("Please enter a valid Safaricom number in format 2547XXXXXXXX");
+      return;
     }
-  </script>
-</body>
-</html>
+
+    if (!confirm(`Buy bundle worth KES ${amount} for ${phone}?`)) return;
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, amount })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ STK Push sent to your phone. Enter PIN to complete.");
+      } else {
+        alert("❌ Failed: " + (data.details?.errorMessage || data.message || "Unknown error"));
+      }
+    } catch (err) {
+      alert("❌ Network/CORS Error: " + err.message);
+    }
+  }
+</script>
