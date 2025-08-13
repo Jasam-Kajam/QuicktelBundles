@@ -8,7 +8,6 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" width="120" alt="Quicktel Logo">
     <nav class="menu">
@@ -25,101 +24,49 @@
       <span></span>
       <span></span>
     </div>
-  </header> 
- <!-- Main --> 
- <main>
+  </header>  <main>
     <h1>QUICKTEL BUNDLES</h1>
-    <div class="card seven" data-category="bundles">
-    <div class="badge">DAILY Package</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>1GB</h2>
-    <p>Price: Ksh.<strong>99</strong></p>
-    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
-    <button onclick="openPhonePopup('1GB', 99)">Buy Now</button>
+    <section id="bundles">
+      <h2>Data Bundles</h2>
+      <div class="product" onclick="openPhonePopup('1GB Daily Bundle', 50)">
+        <h3>1GB Daily Bundle</h3>
+        <p>Valid for 24 hours</p>
+        <strong>KES 50</strong>
+      </div>
+      <div class="product" onclick="openPhonePopup('5GB Weekly Bundle', 250)">
+        <h3>5GB Weekly Bundle</h3>
+        <p>Valid for 7 days</p>
+        <strong>KES 250</strong>
+      </div>
+    </section><section id="minutes">
+  <h2>Minutes Packages</h2>
+  <div class="product" onclick="openPhonePopup('100 Minutes', 100)">
+    <h3>100 Minutes</h3>
+    <p>Valid for 30 days</p>
+    <strong>KES 100</strong>
   </div>
-  <div class="card two" data-category="bundles">
-    <div class="badge">FASTER USE</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>500MB</h2>
-    <p>Price: Ksh.<strong>20</strong></p>
-    <div class="validity">⏱ Valid: <strong>3hrs</strong></div>
-    <button onclick="openPhonePopup('500MB', 20)">Buy Now</button>
+  <div class="product" onclick="openPhonePopup('500 Minutes', 450)">
+    <h3>500 Minutes</h3>
+    <p>Valid for 30 days</p>
+    <strong>KES 450</strong>
   </div>
-  <div class="card three" data-category="bundles">
-    <div class="badge">GOOD CHOICE</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>300MB</h2>
-    <p>Price: Ksh.<strong>25</strong></p>
-    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
-    <button onclick="openPhonePopup('300MB', 25)">Buy Now</button>
-  </div>
-  <!-- ===== BUNDLES CARDS END ===== -->
+</section>
 
-  <!-- ===== MINUTES CARDS START ===== -->
-   <div class="card one" data-category="minutes">
-    <div class="badge">MOST POPULAR</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>51 MINS </h2>
-    <p>Price: Ksh.<strong>48</strong></p>
-    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
-    <button onclick="openPhonePopup('51 MINS', 48)">Buy Now</button>
+<section id="sms">
+  <h2>SMS Packages</h2>
+  <div class="product" onclick="openPhonePopup('500 SMS', 50)">
+    <h3>500 SMS</h3>
+    <p>Valid for 30 days</p>
+    <strong>KES 50</strong>
   </div>
-  <div class="card three" data-category="minutes">
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>800 MINS</h2>
-    <p>Price: Ksh.1200</p>
-    <div class="validity">⏱ Valid: <strong>30 days</strong></div>
-    <button onclick="openPhonePopup('800 MINS', 1200)">Buy Now</button>
+  <div class="product" onclick="openPhonePopup('2000 SMS', 150)">
+    <h3>2000 SMS</h3>
+    <p>Valid for 30 days</p>
+    <strong>KES 150</strong>
   </div>
-  <div class="card four" data-category="minutes">
-    <div class="badge">MOST POPULAR</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>100 MINS</h2>
-    <p>Price: Ksh.<strong>55</strong></p>
-    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
-    <button onclick="openPhonePopup('100 MINS', 55)">Buy Now</button>
-  </div> 
-  <div class="card five" data-category="minutes">
-    <div class="badge">MOST POPULAR</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>20 MINS</h2>
-    <p>Price: Ksh.<strong>10</strong></p>
-    <div class="validity">⏱ Valid: <strong>1hr</strong></div>
-    <button onclick="openPhonePopup('20 MINS', 10)">Buy Now</button>
-  </div>
-   <div class="card seven" data-category="minutes">
-    <div class="badge">MOST POPULAR</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>48 MINS</h2>
-    <p>Price: Ksh.<strong>20</strong></p>
-    <div class="validity">⏱ Valid: <strong>3hrs</strong></div>
-    <button onclick="openPhonePopup('48 MINS', 20)">Buy Now</button>
-  </div>
-   <div class="card six" data-category="minutes">
-    <div class="badge">MOST POPULAR</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>30 MINS</h2>
-    <p>Price: Ksh.<strong>5</strong></p>
-    <div class="validity">⏱ Valid: <strong>1hrs</strong></div>
-    <button onclick="openPhonePopup('30', 5)">Buy Now</button>
-  </div>
-  <!-- ===== MINUTES CARDS END ===== -->
+</section>
 
-  <!-- ===== SMS CARDS START ===== -->
-  <div class="card four" data-category="sms">
-    <div class="badge">POPULAR NOW</div>
-    <img src="https://public-files-paystack-prod.s3.eu-west-1.amazonaws.com/integration-logos/rssmtvcf4bathncmrv37.jpeg" alt="Bundle Image" />
-    <h2>200SMS</h2>
-    <p>Price: Ksh.10</p>
-    <div class="validity">⏱ Valid: <strong>24hrs</strong></div>
-    <button onclick="openPhonePopup('200SMS', 10)">Buy Now</button>
-  </div>
-
-  <div class="card five" data-category="sms">
-    <div class="badge">BEST CHOICE</div>
-    <img src="https://public-files-payst
-  </main> 
- <!-- Popup -->  <div class="popup-overlay" id="popupOverlay">
+  </main>  <div class="popup-overlay" id="popupOverlay">
     <div class="popup">
       <h3>Enter Payment Details</h3>
       <input type="text" id="popupPhone" placeholder="MPESA Number (2547...)" maxlength="12">
@@ -128,7 +75,7 @@
       <button id="submitPayment">Pay Now</button>
       <button class="cancel" onclick="closePopup()">Cancel</button>
     </div>
-  </div>  <!-- Custom Confirm -->  <div id="customConfirmOverlay">
+  </div>  <div id="customConfirmOverlay">
     <div id="customConfirmBox">
       <h3>Confirm Your Purchase</h3>
       <div id="confirmDetails"></div>
