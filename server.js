@@ -11,13 +11,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 10000;
 
-// ✅ Enable CORS for all origins
-app.use(cors({
-  origin: "*", // Allow any domain
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
 app.use(bodyParser.json());
 app.use(express.static("public")); // Serve index.html and assets
 
@@ -47,7 +40,7 @@ async function getAccessToken() {
   return response.data.access_token;
 }
 
-// Send STK Push
+// Send STK Push using HO shortcode
 app.post("/stkpush", async (req, res) => {
   try {
     const { phone, amount } = req.body;
@@ -71,7 +64,7 @@ app.post("/stkpush", async (req, res) => {
       PartyB: process.env.TILL_NUMBER,
       PhoneNumber: phone,
       CallBackURL: process.env.CALLBACK_URL,
-      AccountReference: "WAFULA DIGITAL",
+      AccountReference: "WAFULA DIGITAL",                     // Store Number
       TransactionDesc: "Bundles",
     };
 
