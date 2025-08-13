@@ -716,6 +716,77 @@
 
 
   <script>
+    // Disable right click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.querySelector('.menu');
+    hamburger.addEventListener('click', () => {
+        menu.classList.toggle('show');
+    });
+
+    // Popup form elements
+    const popupOverlay = document.getElementById("popupOverlay");
+    const phoneInput = document.getElementById("popupPhone");
+    const amountInput = document.getElementById("popupAmount");
+    const titleInput = document.getElementById("popupTitle");
+    const submitBtn = document.getElementById("submitPayment");
+
+    // Custom confirm elements
+    const confirmOverlay = document.getElementById("customConfirmOverlay");
+    const confirmDetails = document.getElementById("confirmDetails");
+    const confirmYesBtn = document.querySelector(".confirm-yes");
+    const confirmNoBtn = document.querySelector(".confirm-no");
+
+    function customConfirm(product, amount) {
+        return new Promise((resolve) => {
+            confirmDetails.innerHTML = `📦 <strong>${product}</strong><br>💰 Amount: <strong>KES ${amount}</strong>`;
+            confirmOverlay.style.display = 'flex';
+
+            confirmYesBtn.onclick = () => {
+                confirmOverlay.style.display = 'none';
+                resolve(true);
+            };
+            confirmNoBtn.onclick = () => {
+                confirmOverlay.style.display = 'none';
+                resolve(false);
+            };
+        });
+    }
+
+    async function openPhonePopup(product, amount) {
+        // Show confirmation first
+        const confirmPurchase = await customConfirm(product, amount);
+
+        if (!confirmPurchase) {
+            return; // Stop if user cancels
+        }
+
+        // Only open number input popup if confirmed
+        phoneInput.value = '';
+        amountInput.value = amount;
+        titleInput.value = product;
+        popupOverlay.classList.add("active");
+    }
+
+    function closePopup() {
+        popupOverlay.classList.remove("active");
+    }
+
+    submitBtn.addEventListener("click", async () => {
+        const phone = phoneInput.value.trim();
+        const amount = amountInput.value;
+
+        // Validate phone number
+        if (!/^254\d{9}$/.test(phone)) {
+            alert("❌ Please enter a valid Safaricom number starting with 254...");
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
     async function buyBundle(amount) {
       const phone = document.getElementById("phone").value.trim();
       if (!phone.match(/^2547\d{8}$/)) {
